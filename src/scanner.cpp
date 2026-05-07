@@ -62,6 +62,10 @@ void Scanner::scan_token(){
 }
 void Scanner::number(){
 	while (std::isdigit(peek())) advance();
+	if (peek() == '.') {
+		advance(); // consume the .	
+		while (std::isdigit(peek())) advance();
+	}
 	// TODO: pass the literal value also i guess
 	add_token(TOKEN_NUMBER);
 }
