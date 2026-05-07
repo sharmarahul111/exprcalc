@@ -2,6 +2,7 @@
 #define TOKEN_H
 
 #include<string>
+#include <variant>
 typedef enum {
 	TOKEN_PLUS,
 	TOKEN_MINUS,
@@ -23,11 +24,17 @@ typedef enum {
 struct Token {
 	TokenType token_type;
 	std::string lexeme;
-	// int literal;
+	std::variant<std::monostate, double, std::string> literal;
 	Token(TokenType token_type, std::string lexeme){
 		this->token_type = token_type;
 		this->lexeme = lexeme;
 	}
+	Token(TokenType token_type, std::string lexeme, double literal){
+		this->token_type = token_type;
+		this->lexeme = lexeme;
+		this->literal = literal;
+	}
+
 };
 
 #endif

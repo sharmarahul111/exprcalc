@@ -14,6 +14,7 @@ class Scanner {
 	bool is_at_end();
 	char advance();
 	void add_token(TokenType token_type);
+	void add_token(TokenType token_type, double literal);
 	void number(char c='\0');
 	void identifier();
 	char peek();

@@ -1,4 +1,5 @@
 #include "scanner.h"
+#include "token.h"
 #include <cctype>
 std::vector<Token> Scanner::scan_tokens(){
 	while(!is_at_end()){
@@ -79,9 +80,12 @@ void Scanner::identifier(){
 	while (std::isalnum(peek())) advance();
 	add_token(TOKEN_IDENTIFIER);
 }
-void Scanner::add_token(TokenType token_type /*, std::string literal*/){
+void Scanner::add_token(TokenType token_type){
 	auto text = std::string(source.substr(start, curr-start));
-	tokens.push_back(Token(token_type, text));
+	if (token_type == TOKEN_NUMBER)
+		tokens.push_back(Token(token_type, text, std::stod(text)));
+	else
+		tokens.push_back(Token(token_type, text));
 }
 bool Scanner::is_at_end(){
 	return curr >= source.size();
