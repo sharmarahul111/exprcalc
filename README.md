@@ -20,3 +20,9 @@ Welcome to calc expr!!
 > log(2,dec(2CD))
 9.485 829 308 7
 ```
+
+## Status
+- ✅ Scanner/Tokenizer class complete
+	- reconize numbers, basic operators, parenthesis
+	- stores alphanumerics (first letter alphabet) as identifiers
+	which can later be used for constants and function names
