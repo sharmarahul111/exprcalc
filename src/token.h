@@ -1,3 +1,6 @@
+#ifndef TOKEN_H
+#define TOKEN_H
+
 #include<string>
 typedef enum {
 	TOKEN_PLUS,
@@ -14,3 +17,5 @@ struct Token {
 		this->lexeme = lexeme;
 	}
 };
+
+#endif
