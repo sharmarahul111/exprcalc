@@ -14,8 +14,8 @@ void ExprCalc::run_prompt(){
 	}
 }
 void ExprCalc::run(std::string_view source){
-	Scanner scanner;
-	auto tokens = scanner.scan_tokens(source);
+	Scanner scanner(source);
+	auto tokens = scanner.scan_tokens();
 	for (auto token : tokens) {
 		std::cout << "Token code: " << token.token_type << ", lexeme = " << token.lexeme << std::endl;
 	}
