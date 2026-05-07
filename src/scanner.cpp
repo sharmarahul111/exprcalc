@@ -1,4 +1,5 @@
 #include "scanner.h"
+#include <cctype>
 std::vector<Token> Scanner::scan_tokens(){
 	while(!is_at_end()){
 		start = curr;
@@ -39,7 +40,10 @@ void Scanner::scan_token(){
 			add_token(TOKEN_COMMA);
 			break;
 		case '.':
-			add_token(TOKEN_DOT);
+			if(std::isdigit(peek()))
+				number('.');
+			else
+				add_token(TOKEN_DOT);
 			break;
 		case '=':
 			add_token(TOKEN_EQUAL);
@@ -60,9 +64,9 @@ void Scanner::scan_token(){
 	}
 
 }
-void Scanner::number(){
+void Scanner::number(char c){ // default = '\0'
 	while (std::isdigit(peek())) advance();
-	if (peek() == '.') {
+	if (peek() == '.' && c != '.') {
 		advance(); // consume the .	
 		while (std::isdigit(peek())) advance();
 	}
