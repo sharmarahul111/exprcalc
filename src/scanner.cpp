@@ -1,5 +1,4 @@
 #include "scanner.h"
-#include "token.h"
 std::vector<Token> Scanner::scan_tokens(){
 	while(!is_at_end()){
 		start = curr;
@@ -49,11 +48,26 @@ void Scanner::scan_token(){
 			add_token(TOKEN_PIPE);
 			break;
 		default:
-			// throw some error here
+			if (std::isdigit(c)) {
+				number();
+			} else if (std::isalpha(c)) {
+				identifier();
+			} else {
+				// something
+			}
 			
 			break;
 	}
 
+}
+void Scanner::number(){
+	while (std::isdigit(peek())) advance();
+	// TODO: pass the literal value also i guess
+	add_token(TOKEN_NUMBER);
+}
+void Scanner::identifier(){
+	while (std::isalnum(peek())) advance();
+	add_token(TOKEN_IDENTIFIER);
 }
 void Scanner::add_token(TokenType token_type /*, std::string literal*/){
 	auto text = std::string(source.substr(start, curr-start));
@@ -65,4 +79,11 @@ bool Scanner::is_at_end(){
 char Scanner::advance(){
 	curr += 1;
 	return source[curr-1];
+}
+char Scanner::peek(){
+	if (is_at_end()) {
+		return '\0';
+	} else {
+		return source[curr];
+	}
 }

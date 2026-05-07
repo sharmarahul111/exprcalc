@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include<vector>
+#include<cctype>
 #include "token.h"
 class Scanner {
 	std::size_t start {0};
@@ -13,6 +14,10 @@ class Scanner {
 	bool is_at_end();
 	char advance();
 	void add_token(TokenType token_type);
+	void number();
+	void identifier();
+	char peek();
+	// void string();
 	public:
 		Scanner()=default;
 		Scanner(std::string_view src){
