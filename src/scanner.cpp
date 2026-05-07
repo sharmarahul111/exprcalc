@@ -56,8 +56,10 @@ void Scanner::scan_token(){
 				number();
 			} else if (std::isalpha(c)) {
 				identifier();
+			} else if (c == ' ' || c == '\t' || c == '\r'){
+				// ignore white spaces
 			} else {
-				// something
+				// TODO: handle unexpected tokens
 			}
 			
 			break;
