@@ -22,31 +22,44 @@ class Expr {
 };
 
 class Binary: public Expr {
-	Expr* left {nullptr};
-	Token _operator;
-	Expr* right {nullptr};
 	public:
+		Expr* left {nullptr};
+		Token _operator;
+		Expr* right {nullptr};
 		void accept(Visitor*) override;
+		Binary(Token _operator, Expr *left, Expr*right){
+			this->_operator = _operator;
+			this->left = left;
+			this->right = right;
+		}
 };
 
 class Grouping: public Expr {
-	Expr* expr {nullptr};
-	void accept(Visitor*) override;
+	public:
+		Expr* expr {nullptr};
+		void accept(Visitor*) override;
+		Grouping(Expr *expr){
+			this->expr = expr;
+		}
 };
 
 class Literal: public Expr {
-	std::variant<std::monostate,double> value;
 	public:
-	void accept(Visitor*) override;
-	Literal(double v){
-		value = v;
-	}
+		std::variant<std::monostate,double> value;
+		void accept(Visitor*) override;
+		Literal(double v){
+			value = v;
+		}
 };
 
 class Unary: public Expr {
-	Token _operator;
-	Expr* right {nullptr};
 	public:
+		Token _operator;
+		Expr* right {nullptr};
+		Unary(Token _operator, Expr* right){
+			this->_operator = _operator;
+			this->right = right;
+		}
 		void accept(Visitor*) override;
 };
 
