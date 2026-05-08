@@ -25,6 +25,7 @@ struct Token {
 	TokenType token_type;
 	std::string lexeme;
 	std::variant<std::monostate, double, std::string> literal;
+	Token()=default;
 	Token(TokenType token_type, std::string lexeme){
 		this->token_type = token_type;
 		this->lexeme = lexeme;
