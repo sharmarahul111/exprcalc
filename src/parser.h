@@ -2,6 +2,7 @@
 #define PARSER_H
 
 #include<vector>
+#include<string>
 #include "token.h"
 #include "expr.h"
 
@@ -23,9 +24,9 @@ class Parser {
 		bool check(TokenType);
 		bool match(TokenType);
 		bool match(TokenType, TokenType);
-		Token advance();
-		Token consume();
 		Token previous();
+		Token advance();
+		Token consume(TokenType, std::string_view);
 		bool is_at_end();
 };
 
