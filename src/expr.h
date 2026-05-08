@@ -19,6 +19,8 @@ class Visitor {
 class Expr {
 	protected:
 		virtual void accept(Visitor*)=0;
+	public:
+		virtual ~Expr();
 };
 
 class Binary: public Expr {
@@ -32,6 +34,12 @@ class Binary: public Expr {
 			this->left = left;
 			this->right = right;
 		}
+		~Binary(){
+			delete left;
+			left = nullptr;
+			delete right;
+			right = nullptr;
+		}
 };
 
 class Grouping: public Expr {
@@ -40,6 +48,10 @@ class Grouping: public Expr {
 		void accept(Visitor*) override;
 		Grouping(Expr *expr){
 			this->expr = expr;
+		}
+		~Grouping(){
+			delete expr;
+			expr = nullptr;
 		}
 };
 
@@ -59,6 +71,10 @@ class Unary: public Expr {
 		Unary(Token _operator, Expr* right){
 			this->_operator = _operator;
 			this->right = right;
+		}
+		~Unary(){
+			delete right;
+			right = nullptr;
 		}
 		void accept(Visitor*) override;
 };
