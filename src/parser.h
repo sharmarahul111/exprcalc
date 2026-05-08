@@ -6,6 +6,15 @@
 #include "token.h"
 #include "expr.h"
 
+struct ParseError {
+	Token token;
+	std::string_view message;
+	ParseError(Token t, std::string_view msg){
+		token = t;
+		message = msg;
+	}
+};
+
 class Parser {
 	private:
 		std::vector<Token> tokens;
