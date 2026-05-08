@@ -20,7 +20,7 @@ class Expr {
 	protected:
 		virtual void accept(Visitor*)=0;
 	public:
-		virtual ~Expr();
+		virtual ~Expr(){};
 };
 
 class Binary: public Expr {
