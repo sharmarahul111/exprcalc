@@ -13,12 +13,20 @@ class Parser {
 		Parser(std::vector<Token> t){
 			tokens = t;
 		}
+		Expr* parse();
 		Expr* expression();
-		// Expr* equality();
 		Expr* term();
 		Expr* factor();
 		Expr* unary();
 		Expr* primary();
+		Token peek();
+		bool check(TokenType);
+		bool match(TokenType);
+		bool match(TokenType, TokenType);
+		Token advance();
+		Token consume();
+		Token previous();
+		bool is_at_end();
 };
 
 #endif
