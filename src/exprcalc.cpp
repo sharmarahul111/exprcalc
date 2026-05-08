@@ -15,11 +15,12 @@ void ExprCalc::run_prompt(){
 	}
 }
 void ExprCalc::run(std::string_view source){
+	Expr* expr {nullptr};
 	Scanner scanner(source);
 	auto tokens = scanner.scan_tokens();
 	Parser parser(tokens);
 	try {
-		parser.parse();
+		expr = parser.parse();
 	} catch (ParseError pe) {
 		std::cout << "SYNTAX ERROR: " << pe.message << std::endl;
 	}

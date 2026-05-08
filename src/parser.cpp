@@ -14,6 +14,11 @@ Expr* Parser::factor(){
 	return unary();
 }
 Expr* Parser::unary(){
+	if(match(TOKEN_MINUS)){
+		Token op = previous();
+		Expr* right = unary();
+		return new Unary(op, right);
+	}
 	return primary();
 }
 
