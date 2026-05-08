@@ -10,10 +10,10 @@ class Grouping;
 
 class Visitor {
 	public:
-		virtual void visit_binary_expr(Binary) = 0;
-		virtual void visit_unary_expr(Unary) = 0;
-		virtual void visit_grouping_expr(Grouping) = 0;
-		virtual void visit_literal_expr(Literal) = 0;
+		virtual void visit_binary_expr(Binary&) = 0;
+		virtual void visit_unary_expr(Unary&) = 0;
+		virtual void visit_grouping_expr(Grouping&) = 0;
+		virtual void visit_literal_expr(Literal&) = 0;
 };
 
 class Expr {
