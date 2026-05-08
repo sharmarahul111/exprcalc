@@ -17,6 +17,7 @@ void ExprCalc::run_prompt(){
 void ExprCalc::run(std::string_view source){
 	Scanner scanner(source);
 	auto tokens = scanner.scan_tokens();
+	// TODO: remember to deallocate parser Expr* memory
 	for (auto token : tokens) {
 		std::cout << "Token code: " << token.token_type << ", lexeme = " << token.lexeme;
 		if (std::holds_alternative<double>(token.literal))

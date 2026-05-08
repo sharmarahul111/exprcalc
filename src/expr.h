@@ -18,13 +18,13 @@ class Expr {
 };
 
 class Binary: Expr {
-	Expr* left;
+	Expr* left {nullptr};
 	Token _operator;
-	Expr* right;
+	Expr* right {nullptr};
 };
 
 class Grouping: Expr {
-	Expr* expr;
+	Expr* expr {nullptr};
 };
 
 class Literal: Expr {
@@ -33,7 +33,7 @@ class Literal: Expr {
 
 class Unary: Expr {
 	Token _operator;
-	Expr* right;
+	Expr* right {nullptr};
 };
 
 #endif
