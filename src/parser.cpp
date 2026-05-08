@@ -63,8 +63,8 @@ Token Parser::previous(){
 	return tokens[current - 1];
 }
 Token Parser::consume(TokenType t, std::string_view msg){
-	if (match(t)) {
-		advance();
+	if (check(t)) {
+		return advance();
 	}
 	throw ParseError(peek(), msg);
 }
