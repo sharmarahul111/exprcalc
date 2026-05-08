@@ -4,6 +4,7 @@
 #include<iostream>
 #include<string>
 #include<vector>
+#include "parser.h"
 #include "scanner.h"
 class ExprCalc {
 	public:

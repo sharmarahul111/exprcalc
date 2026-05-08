@@ -1,5 +1,5 @@
 #include "exprcalc.h"
-#include <variant>
+// #include <variant>
 void ExprCalc::run_prompt(){
 	std::cout << "Welcome to exprcalc!!" << std::endl;
 	std::string line;
@@ -17,6 +17,12 @@ void ExprCalc::run_prompt(){
 void ExprCalc::run(std::string_view source){
 	Scanner scanner(source);
 	auto tokens = scanner.scan_tokens();
+	Parser parser(tokens);
+	try {
+		parser.parse();
+	} catch (ParseError pe) {
+		std::cout << "SYNTAX ERROR: " << pe.message << std::endl;
+	}
 	// TODO: remember to deallocate parser Expr* memory
 	for (auto token : tokens) {
 		std::cout << "Token code: " << token.token_type << ", lexeme = " << token.lexeme;
