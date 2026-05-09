@@ -22,7 +22,19 @@ Welcome to calc expr!!
 ```
 
 ## Status
+### Current capability
+```
+> 3+4*(2-9)^2
+199
+```
+
+### Worktree
 - ✅ Scanner/Tokenizer class complete
 	- reconize numbers, basic operators, parenthesis
 	- stores alphanumerics (first letter alphabet) as identifiers
 	which can later be used for constants and function names
+- ✅ Abstract Syntax Tree (AST)
+	- handles binary operators `(+,-,*,/,^)`, grouping, unary, literal value.
+	- ❌ function call not implemented yet
+- ✅ Evaluator
+	- evaluates binary operators `(+,-,*,/,^)`, grouping, unary, literal value (operator asociativity of exponent `^` is broken).
