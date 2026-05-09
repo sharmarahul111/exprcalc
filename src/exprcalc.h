@@ -6,6 +6,7 @@
 #include<vector>
 #include "parser.h"
 #include "scanner.h"
+#include "tools/astprinter.h"
 class ExprCalc {
 	public:
 		void run_prompt();

@@ -24,6 +24,8 @@ void ExprCalc::run(std::string_view source){
 	} catch (ParseError pe) {
 		std::cout << "SYNTAX ERROR: " << pe.message << std::endl;
 	}
+	// Print Abstract Syntax Tree
+	printExpr(expr);
 	// TODO: remember to deallocate parser Expr* memory
 	for (auto token : tokens) {
 		std::cout << "Token code: " << token.token_type << ", lexeme = " << token.lexeme;
