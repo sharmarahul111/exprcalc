@@ -1,6 +1,7 @@
 #ifndef EVALUATOR_H
 #define EVALUATOR_H
 
+#include<cmath>
 #include "token.h"
 #include "expr.h"
 // runtime error
@@ -19,7 +20,8 @@ class Evaluator: public Visitor {
 		Value visit_literal_expr(Literal&);
 		Value visit_unary_expr(Unary&);
 	public:
-		void evaluate();
+		Evaluator(){};
+		Value evaluate(Expr*);
 };
 
 #endif
