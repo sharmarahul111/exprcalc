@@ -3,7 +3,7 @@ void ExprCalc::run_prompt(){
 	std::cout << "Welcome to exprcalc!!" << std::endl;
 	std::string line;
 	while(true){
-		std::cout << '>';
+		std::cout << "> ";
 		std::getline(std::cin, line);
 		// TODO: check for white space only characters
 		if (line == "") {
@@ -25,7 +25,7 @@ void ExprCalc::run(std::string_view source){
 		std::cout << "SYNTAX ERROR: " << pe.message << std::endl;
 	}
 	// Print Abstract Syntax Tree
-	printExpr(expr);
+	// printExpr(expr);
 
 	// Evaluate the results
 	try {
