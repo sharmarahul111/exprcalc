@@ -8,10 +8,22 @@ Expr* Parser::expression(){
 	return term();
 }
 Expr* Parser::term(){
-	return factor();
+	Expr* expr = factor();
+	while(match(TOKEN_STAR, TOKEN_SLASH)){
+		Token op = previous();
+		Expr* right = factor();
+		expr = new Binary(op, expr, right);
+	}
+	return expr;
 }
 Expr* Parser::factor(){
-	return unary();
+	Expr* expr = unary();
+	while(match(TOKEN_PLUS, TOKEN_MINUS)){
+		Token op = previous();
+		Expr* right = unary();
+		expr = new Binary(op, expr, right);
+	}
+	return expr;
 }
 Expr* Parser::unary(){
 	if(match(TOKEN_MINUS)){
@@ -45,6 +57,10 @@ bool Parser::match(TokenType t){
 	} else {
 		return false;
 	}
+}
+bool Parser::match(TokenType t1, TokenType t2){
+	if(match(t1) || match(t2)) return true;
+	return false;
 }
 bool Parser::check(TokenType t){
 	return peek().token_type == t;
