@@ -17,14 +17,26 @@ Expr* Parser::term(){
 	return expr;
 }
 Expr* Parser::factor(){
-	Expr* expr = unary();
+	Expr* expr = exponent();
 	while(match(TOKEN_STAR, TOKEN_SLASH)){
+		Token op = previous();
+		Expr* right = exponent();
+		expr = new Binary(op, expr, right);
+	}
+	return expr;
+}
+
+Expr* Parser::exponent(){
+	// TODO: fix associativity of exponents from ltr to rtl
+	Expr* expr = unary();
+	while(match(TOKEN_EXP)){
 		Token op = previous();
 		Expr* right = unary();
 		expr = new Binary(op, expr, right);
 	}
 	return expr;
 }
+
 Expr* Parser::unary(){
 	if(match(TOKEN_MINUS)){
 		Token op = previous();

@@ -27,6 +27,7 @@ class Parser {
 		Expr* expression();
 		Expr* term();
 		Expr* factor();
+		Expr* exponent();
 		Expr* unary();
 		Expr* primary();
 		Token peek();
