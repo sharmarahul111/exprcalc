@@ -4,6 +4,7 @@
 #include<iostream>
 #include<string>
 #include<vector>
+#include<variant>
 #include "parser.h"
 #include "scanner.h"
 #include "evaluator.h"

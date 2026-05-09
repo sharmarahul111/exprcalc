@@ -1,5 +1,4 @@
 #include "exprcalc.h"
-// #include <variant>
 void ExprCalc::run_prompt(){
 	std::cout << "Welcome to exprcalc!!" << std::endl;
 	std::string line;
@@ -30,16 +29,22 @@ void ExprCalc::run(std::string_view source){
 
 	// Evaluate the results
 	try {
-		evaluator.evaluate();
+		Value v = evaluator.evaluate(expr);
+		if (std::holds_alternative<double>(v)) {
+			std::cout << "ANSWER: "
+			<< std::get<double>(v) << std::endl;
+		} else {
+			std::cout << "Answer not of type double" << std::endl;
+		}
 	} catch (EvaluationError ee) {
 		std::cout << "EVALUATION ERROR: " << ee.message << std::endl;
 	}
 
 	// TODO: remember to deallocate parser Expr* memory
-	for (auto token : tokens) {
-		std::cout << "Token code: " << token.token_type << ", lexeme = " << token.lexeme;
-		if (std::holds_alternative<double>(token.literal))
-			std::cout << ", double = " << std::get<double>(token.literal);
-		std::cout << std::endl;
-	}
+	// for (auto token : tokens) {
+	// 	std::cout << "Token code: " << token.token_type << ", lexeme = " << token.lexeme;
+	// 	if (std::holds_alternative<double>(token.literal))
+	// 		std::cout << ", double = " << std::get<double>(token.literal);
+	// 	std::cout << std::endl;
+	// }
 }
