@@ -8,6 +8,7 @@ class Binary;
 class Unary;
 class Literal;
 class Grouping;
+class Function;
 
 using Value = std::variant<std::monostate, std::string, double>;
 class Visitor {
@@ -16,6 +17,7 @@ class Visitor {
 		virtual Value visit_unary_expr(Unary&) = 0;
 		virtual Value visit_grouping_expr(Grouping&) = 0;
 		virtual Value visit_literal_expr(Literal&) = 0;
+		virtual Value visit_function_expr(Function&) = 0;
 };
 
 class Expr {
@@ -76,6 +78,27 @@ class Unary: public Expr {
 		~Unary(){
 			delete right;
 			right = nullptr;
+		}
+		Value accept(Visitor*) override;
+};
+
+// TODO: find a better way to hold arguments
+class Function: public Expr {
+	const static int ARG_SIZE {10};
+	public:
+		Token name;
+		Expr* args[ARG_SIZE] {nullptr};
+		Function(Token name, Expr* expr[], int arg_count){
+			this->name = name;
+			for (int i=0; i<arg_count && ARG_SIZE; i++) {
+				this->args[i] = expr[i];
+			}
+		}
+		~Function(){
+			for (int i=0; i<ARG_SIZE; i++) {
+				delete args[i];
+				args[i] = nullptr;
+			}
 		}
 		Value accept(Visitor*) override;
 };

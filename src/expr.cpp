@@ -11,3 +11,6 @@ Value Grouping::accept(Visitor* v){
 Value Unary::accept(Visitor* v){
 	return v->visit_unary_expr(*this);
 }
+Value Function::accept(Visitor* v){
+	return v->visit_function_expr(*this);
+}
