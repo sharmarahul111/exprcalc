@@ -6,6 +6,7 @@
 #include<vector>
 #include "parser.h"
 #include "scanner.h"
+#include "evaluator.h"
 #include "tools/astprinter.h"
 class ExprCalc {
 	public:

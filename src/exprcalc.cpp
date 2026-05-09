@@ -17,6 +17,7 @@ void ExprCalc::run_prompt(){
 void ExprCalc::run(std::string_view source){
 	Expr* expr {nullptr};
 	Scanner scanner(source);
+	Evaluator evaluator;
 	auto tokens = scanner.scan_tokens();
 	Parser parser(tokens);
 	try {
@@ -26,6 +27,14 @@ void ExprCalc::run(std::string_view source){
 	}
 	// Print Abstract Syntax Tree
 	printExpr(expr);
+
+	// Evaluate the results
+	try {
+		evaluator.evaluate();
+	} catch (EvaluationError ee) {
+		std::cout << "EVALUATION ERROR: " << ee.message << std::endl;
+	}
+
 	// TODO: remember to deallocate parser Expr* memory
 	for (auto token : tokens) {
 		std::cout << "Token code: " << token.token_type << ", lexeme = " << token.lexeme;
