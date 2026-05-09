@@ -9,7 +9,7 @@ Expr* Parser::expression(){
 }
 Expr* Parser::term(){
 	Expr* expr = factor();
-	while(match(TOKEN_STAR, TOKEN_SLASH)){
+	while(match(TOKEN_PLUS, TOKEN_MINUS)){
 		Token op = previous();
 		Expr* right = factor();
 		expr = new Binary(op, expr, right);
@@ -18,7 +18,7 @@ Expr* Parser::term(){
 }
 Expr* Parser::factor(){
 	Expr* expr = unary();
-	while(match(TOKEN_PLUS, TOKEN_MINUS)){
+	while(match(TOKEN_STAR, TOKEN_SLASH)){
 		Token op = previous();
 		Expr* right = unary();
 		expr = new Binary(op, expr, right);
