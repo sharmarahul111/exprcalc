@@ -23,6 +23,7 @@ void ExprCalc::run(std::string_view source){
 		expr = parser.parse();
 	} catch (ParseError pe) {
 		std::cout << "SYNTAX ERROR: " << pe.message << std::endl;
+		return;
 	}
 	// Print Abstract Syntax Tree
 	// printExpr(expr);
@@ -38,6 +39,7 @@ void ExprCalc::run(std::string_view source){
 		}
 	} catch (EvaluationError ee) {
 		std::cout << "EVALUATION ERROR: " << ee.message << std::endl;
+		return;
 	}
 
 	// TODO: remember to deallocate parser Expr* memory
