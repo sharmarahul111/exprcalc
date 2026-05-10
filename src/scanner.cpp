@@ -77,7 +77,7 @@ void Scanner::number(char c){ // default = '\0'
 	add_token(TOKEN_NUMBER);
 }
 void Scanner::identifier(){
-	while (std::isalnum(peek())) advance();
+	while (std::isalnum(peek()) || peek() == '_') advance();
 	add_token(TOKEN_IDENTIFIER);
 }
 void Scanner::add_token(TokenType token_type){
