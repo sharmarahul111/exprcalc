@@ -3,6 +3,7 @@
 
 #include <variant>
 #include<string>
+#include "globals.h"
 #include "token.h"
 class Binary;
 class Unary;
@@ -121,8 +122,8 @@ class Constant: public Expr {
 class Variable: public Expr {
 	public:
 		Token name;
-		double& value;
-		Variable(Token name, double& ref):value(ref){
+		Environment& env;
+		Variable(Token name, Environment& env):env(env){
 			this->name = name;
 		}
 		Value accept(Visitor*) override;

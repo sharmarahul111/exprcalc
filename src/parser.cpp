@@ -54,12 +54,15 @@ Expr* Parser::primary(){
 		return new Literal(value);
 	} else if (match(TOKEN_IDENTIFIER)) {
 		if (check(TOKEN_LEFT_PAREN)) { // function call syntax
-			
+			std::string name = previous().lexeme;
+			consume(TOKEN_LEFT_PAREN, "never happening error haha");
 		} else {
 			if (ctx.constants.find(previous().lexeme) != ctx.constants.end()) {
 				return new Constant(previous(), ctx.constants[previous().lexeme]);
+			} else if ((env.variables.find(previous().lexeme) != env.variables.end())){
+				return new Variable(previous(), env);
 			} else {
-				throw ParseError(previous(), "Variables not allowed for now.");
+				throw ParseError(previous(), "Undefined variable.");
 			}
 		}
 	} else if (match(TOKEN_LEFT_PAREN)) {

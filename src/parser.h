@@ -3,6 +3,7 @@
 
 #include<vector>
 #include<string>
+#include "globals.h"
 #include "token.h"
 #include "expr.h"
 #include "library.h"
@@ -19,9 +20,10 @@ struct ParseError {
 class Parser {
 	private:
 		std::vector<Token> tokens;
+		Environment& env;
 		size_t current {0};
 	public:
-		Parser(std::vector<Token> t){
+		Parser(std::vector<Token> t, Environment& env): env(env){
 			tokens = t;
 		}
 		Expr* parse();
