@@ -15,6 +15,8 @@ void ExprCalc::run_prompt(){
 	}
 }
 void ExprCalc::run(std::string_view source){
+	// TODO: add help statement to show all available
+	// operations, constants and function calls
 	Expr* expr {nullptr};
 	Scanner scanner(source);
 	Evaluator evaluator;
