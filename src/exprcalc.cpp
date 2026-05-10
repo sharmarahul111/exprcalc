@@ -32,7 +32,7 @@ void ExprCalc::run(std::string_view source, Environment& env){
 		return;
 	}
 	// Print Abstract Syntax Tree
-	// printExpr(expr);
+	printExpr(expr);
 
 	// Evaluate the results
 	try {

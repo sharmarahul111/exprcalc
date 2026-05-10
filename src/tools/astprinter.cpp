@@ -17,6 +17,15 @@ Value ASTPrinter::visit_unary_expr(Unary& unary){
 Value ASTPrinter::visit_grouping_expr(Grouping& grouping){
 	return parenthesize("group", Exprs{grouping.expr});
 }
+Value ASTPrinter::visit_function_expr(Function& function){
+	return "Function <yet to be implemented>";
+}
+Value ASTPrinter::visit_constant_expr(Constant& constant){
+	return constant.name.lexeme;
+}
+Value ASTPrinter::visit_variable_expr(Variable& variable){
+	return variable.name.lexeme;
+}
 Value ASTPrinter::parenthesize(std::string name, Exprs expr){
 	std::string value = "(" + name;
 	for (auto val : expr) {
