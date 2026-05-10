@@ -54,5 +54,11 @@ Value Evaluator::visit_constant_expr(Constant& constant){
 }
 
 Value Evaluator::visit_variable_expr(Variable& variable){
-	return variable.value;
+	if ((variable.env.variables.find(variable.name.lexeme) != variable.env.variables.end())) {
+		return variable.env.variables[variable.name.lexeme];
+	}
+	throw EvaluationError(
+		variable.name,
+		"Variable value of \""+variable.name.lexeme+"\" not found."
+	);
 }
