@@ -14,3 +14,6 @@ Value Unary::accept(Visitor* v){
 Value Function::accept(Visitor* v){
 	return v->visit_function_expr(*this);
 }
+Value Constant::accept(Visitor* v){
+	return v->visit_constant_expr(*this);
+}

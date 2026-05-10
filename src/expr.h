@@ -9,6 +9,7 @@ class Unary;
 class Literal;
 class Grouping;
 class Function;
+class Constant;
 
 using Value = std::variant<std::monostate, std::string, double>;
 class Visitor {
@@ -18,6 +19,7 @@ class Visitor {
 		virtual Value visit_grouping_expr(Grouping&) = 0;
 		virtual Value visit_literal_expr(Literal&) = 0;
 		virtual Value visit_function_expr(Function&) = 0;
+		virtual Value visit_constant_expr(Constant&) = 0;
 };
 
 class Expr {
@@ -99,6 +101,17 @@ class Function: public Expr {
 				delete args[i];
 				args[i] = nullptr;
 			}
+		}
+		Value accept(Visitor*) override;
+};
+
+class Constant: public Expr {
+	public:
+		Token name;
+		double value;
+		Constant(Token name, double value){
+			this->name = name;
+			this->value = value;
 		}
 		Value accept(Visitor*) override;
 };
