@@ -10,6 +10,7 @@ class Literal;
 class Grouping;
 class Function;
 class Constant;
+class Variable;
 
 using Value = std::variant<std::monostate, std::string, double>;
 class Visitor {
@@ -20,6 +21,7 @@ class Visitor {
 		virtual Value visit_literal_expr(Literal&) = 0;
 		virtual Value visit_function_expr(Function&) = 0;
 		virtual Value visit_constant_expr(Constant&) = 0;
+		virtual Value visit_variable_expr(Variable&) = 0;
 };
 
 class Expr {
@@ -112,6 +114,16 @@ class Constant: public Expr {
 		Constant(Token name, double value){
 			this->name = name;
 			this->value = value;
+		}
+		Value accept(Visitor*) override;
+};
+
+class Variable: public Expr {
+	public:
+		Token name;
+		double& value;
+		Variable(Token name, double& ref):value(ref){
+			this->name = name;
 		}
 		Value accept(Visitor*) override;
 };

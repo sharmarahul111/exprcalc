@@ -52,3 +52,7 @@ Value Evaluator::visit_function_expr(Function& function){
 Value Evaluator::visit_constant_expr(Constant& constant){
 	return constant.value;
 }
+
+Value Evaluator::visit_variable_expr(Variable& variable){
+	return variable.value;
+}

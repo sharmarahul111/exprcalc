@@ -17,3 +17,6 @@ Value Function::accept(Visitor* v){
 Value Constant::accept(Visitor* v){
 	return v->visit_constant_expr(*this);
 }
+Value Variable::accept(Visitor* v){
+	return v->visit_variable_expr(*this);
+}

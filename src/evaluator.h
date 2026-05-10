@@ -21,6 +21,7 @@ class Evaluator: public Visitor {
 		Value visit_unary_expr(Unary&);
 		Value visit_function_expr(Function&);
 		Value visit_constant_expr(Constant&);
+		Value visit_variable_expr(Variable&);
 	public:
 		Evaluator(){};
 		Value evaluate(Expr*);
