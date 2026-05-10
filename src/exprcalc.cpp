@@ -1,27 +1,30 @@
 #include "exprcalc.h"
+#include "globals.h"
 void ExprCalc::run_prompt(){
 	std::cout << "exprcalc v0.1" << std::endl;
 	std::cout << "Press Ctrl+C to exit." << std::endl;
 	std::string line;
 	while(true){
+		Environment env;
+		env.variables["ans"] = 0;
 		std::cout << "> ";
 		std::getline(std::cin, line);
 		// TODO: check for white space only characters
 		if (line == "") {
 			continue;
 		}
-		run(line);
+		run(line, env);
 
 	}
 }
-void ExprCalc::run(std::string_view source){
+void ExprCalc::run(std::string_view source, Environment& env){
 	// TODO: add help statement to show all available
 	// operations, constants and function calls
 	Expr* expr {nullptr};
 	Scanner scanner(source);
 	Evaluator evaluator;
 	auto tokens = scanner.scan_tokens();
-	Parser parser(tokens);
+	Parser parser(tokens, env);
 	try {
 		expr = parser.parse();
 	} catch (ParseError pe) {
