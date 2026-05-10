@@ -1,20 +1,23 @@
 # exprcalc
-A console expression evaluator, more than a calculator. Based on the ideas of tree-walk interpreter from crafting interpreters.
+A console expression evaluator and utility DSL for arithmetic, conversions, encoding/decoding, and other programmable operations.
 
-_work under progress by the way ;(_
+Inspired by the tree-walk interpreter architecture from Crafting Interpreters.
+
+_work in progress by the way ;(_
 ## The idea
-I needed a quick and handy tool to do stuff like number system conversion, unit converters, encoders and decoders. So this is a step forward towards that goal. In this project I try to make a workable prototype of a calculator and hopefully be able to extend the features and capabilities.
+I needed a quick and handy tool to do stuff like number system conversions, unit conversions, encoders, and decoders. This project starts as a workable calculator prototype and gradually evolves into a more extensible expression engine with utility-focused features.
 
-This is also going to help me revise the concepts like recursive descent algorithm of tree walk interpreters which I learned in Crafting Interpreters book. Further this will help me make my first proper programming language with my desired features (very ambitious goal, I know).
+This also helps me revisit concepts like recursive descent parsing and AST evaluation that I learned from Crafting Interpreters. This project also serves as groundwork for building my first proper programming language with features I actually want (very ambitious goal, I know).
 
 So, let's see how far I can go.
 
-## Expected final program behaviour :
+## Expected final program behaviour
 ```bash
- ./calcexpr
+ ./exprcalc
 ```
 ```
-Welcome to calc expr!!
+exprcalc v0.1
+Press Ctrl+C to exit.
 > 3+4*(2-9)^2
 199
 > log(2,dec(2CD))
@@ -22,19 +25,20 @@ Welcome to calc expr!!
 ```
 
 ## Status
-### Current capability
+### Current capabilities
 ```
 > 3+4*(2-9)^2
 199
 ```
 
-### Worktree
+### Current Progress
 - ✅ Scanner/Tokenizer class complete
-	- reconize numbers, basic operators, parenthesis
+	- recognize numbers, basic operators, parenthesis
 	- stores alphanumerics (first letter alphabet) as identifiers
 	which can later be used for constants and function names
 - ✅ Abstract Syntax Tree (AST)
-	- handles binary operators `(+,-,*,/,^)`, grouping, unary, literal value.
+	- handles binary operators `(+,-,*,/,^)`, grouping, unary, literal values.
 	- ❌ function call not implemented yet
 - ✅ Evaluator
-	- evaluates binary operators `(+,-,*,/,^)`, grouping, unary, literal value (operator asociativity of exponent `^` is broken).
+	- evaluates binary operators `(+,-,*,/,^)`, grouping, unary, and literal values
+	- ⚠ exponent (`^`) associativity currently incorrect

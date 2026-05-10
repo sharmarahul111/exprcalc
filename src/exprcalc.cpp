@@ -1,6 +1,7 @@
 #include "exprcalc.h"
 void ExprCalc::run_prompt(){
-	std::cout << "Welcome to exprcalc!!" << std::endl;
+	std::cout << "exprcalc v0.1" << std::endl;
+	std::cout << "Press Ctrl+C to exit." << std::endl;
 	std::string line;
 	while(true){
 		std::cout << "> ";
