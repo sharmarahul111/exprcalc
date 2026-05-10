@@ -1,5 +1,6 @@
 #include "parser.h"
 #include "expr.h"
+#include "library.h"
 #include "token.h"
 Expr* Parser::parse(){
 		return expression();
@@ -47,11 +48,20 @@ Expr* Parser::unary(){
 }
 
 Expr* Parser::primary(){
+	Context ctx = library();
 	if (match(TOKEN_NUMBER)) {
 		double value = std::get<double>(previous().literal);
 		return new Literal(value);
 	} else if (match(TOKEN_IDENTIFIER)) {
-		// check if it's constant or function call
+		if (check(TOKEN_LEFT_PAREN)) { // function call syntax
+			
+		} else {
+			if (ctx.constants.find(previous().lexeme) != ctx.constants.end()) {
+				return new Constant(previous(), ctx.constants[previous().lexeme]);
+			} else {
+				throw ParseError(previous(), "Variables not allowed for now.");
+			}
+		}
 	} else if (match(TOKEN_LEFT_PAREN)) {
 		Expr* expr = expression();
 		consume(TOKEN_RIGHT_PAREN, "No closing ) found.");

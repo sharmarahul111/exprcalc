@@ -5,6 +5,7 @@
 #include<string>
 #include "token.h"
 #include "expr.h"
+#include "library.h"
 
 struct ParseError {
 	Token token;

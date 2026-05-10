@@ -1,10 +1,12 @@
 #include "evaluator.h"
+#include "expr.h"
 #include <cmath>
 
 Value Evaluator::evaluate(Expr* expr){
 	// hey Hisenberg, do something!!
 	return expr->accept(this);
 }
+
 Value Evaluator::visit_literal_expr(Literal& literal){
 	if (std::holds_alternative<double>(literal.value)) {
 		return std::get<double>(literal.value);
@@ -30,6 +32,7 @@ Value Evaluator::visit_binary_expr(Binary& binary){
 
 	}
 }
+
 Value Evaluator::visit_unary_expr(Unary& unary){
 	Value v = unary.right->accept(this);
 	if (std::holds_alternative<double>(v)) {
@@ -37,6 +40,15 @@ Value Evaluator::visit_unary_expr(Unary& unary){
 	}
 	throw EvaluationError(unary._operator,"Only double values allowed for now");
 }
+
 Value Evaluator::visit_grouping_expr(Grouping& grouping){
 	return grouping.expr->accept(this);
+}
+
+Value Evaluator::visit_function_expr(Function& function){
+	// TODO: implement function evaluation
+}
+
+Value Evaluator::visit_constant_expr(Constant& constant){
+	return constant.value;
 }
