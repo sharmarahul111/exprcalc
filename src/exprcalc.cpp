@@ -1,12 +1,12 @@
 #include "exprcalc.h"
 #include "globals.h"
 void ExprCalc::run_prompt(){
-	std::cout << "exprcalc v0.1" << std::endl;
+	std::cout << "exprcalc v0.2" << std::endl;
 	std::cout << "Press Ctrl+C to exit." << std::endl;
 	std::string line;
+	Environment env;
+	env.variables["ans"] = 0;
 	while(true){
-		Environment env;
-		env.variables["ans"] = 0;
 		std::cout << "> ";
 		std::getline(std::cin, line);
 		// TODO: check for white space only characters
@@ -38,8 +38,10 @@ void ExprCalc::run(std::string_view source, Environment& env){
 	try {
 		Value v = evaluator.evaluate(expr);
 		if (std::holds_alternative<double>(v)) {
-			std::cout << "ANSWER: "
-			<< std::get<double>(v) << std::endl;
+			double answer = std::get<double>(v);
+			env.variables["ans"] = answer;
+			std::cout
+			<< answer << std::endl;
 		} else {
 			std::cout << "Answer not of type double" << std::endl;
 		}

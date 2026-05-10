@@ -16,7 +16,7 @@ So, let's see how far I can go.
  ./exprcalc
 ```
 ```
-exprcalc v0.1
+exprcalc v0.2
 Press Ctrl+C to exit.
 > 3+4*(2-9)^2
 199
@@ -29,6 +29,8 @@ Press Ctrl+C to exit.
 ```
 > 3+4*(2-9)^2
 199
+> ans/2
+99.5
 ```
 
 ### Current Progress
@@ -42,3 +44,6 @@ Press Ctrl+C to exit.
 - ✅ Evaluator
 	- evaluates binary operators `(+,-,*,/,^)`, grouping, unary, and literal values
 	- ⚠ exponent (`^`) associativity currently incorrect
+- ✅ Various mathematical, phisical and chemical constants (pi, G, NA, etc)
+- ✅ Runtime variable support internally (can't make variables yet)
+	- ✅ `ans` variable support for storing latest answerin memory
