@@ -3,6 +3,7 @@
 
 #include <variant>
 #include<string>
+#include<vector>
 #include "globals.h"
 #include "token.h"
 class Binary;
@@ -89,18 +90,15 @@ class Unary: public Expr {
 
 // TODO: find a better way to hold arguments
 class Function: public Expr {
-	const static int ARG_SIZE {10};
 	public:
 		Token name;
-		Expr* args[ARG_SIZE] {nullptr};
-		Function(Token name, Expr* expr[], int arg_count){
+		std::vector<Expr *> args;
+		Function(Token name, std::vector<Expr*> args){
 			this->name = name;
-			for (int i=0; i<arg_count && ARG_SIZE; i++) {
-				this->args[i] = expr[i];
-			}
+			this->args = args;
 		}
 		~Function(){
-			for (int i=0; i<ARG_SIZE; i++) {
+			for (size_t i=0; i<args.size(); i++) {
 				delete args[i];
 				args[i] = nullptr;
 			}

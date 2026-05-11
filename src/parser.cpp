@@ -54,8 +54,21 @@ Expr* Parser::primary(){
 		return new Literal(value);
 	} else if (match(TOKEN_IDENTIFIER)) {
 		if (check(TOKEN_LEFT_PAREN)) { // function call syntax
-			std::string name = previous().lexeme;
+			std::vector<Expr*> args;
+			Token name = previous();
 			consume(TOKEN_LEFT_PAREN, "never happening error haha");
+			if (match(TOKEN_RIGHT_PAREN)) {
+				return new Function(name, args);
+			} else {
+				do {
+					args.push_back(expression());
+				}
+				while (match(TOKEN_COMMA));
+				Expr* expr = new Function(name, args);
+				consume(TOKEN_RIGHT_PAREN, "Expected ) after arguments.");
+				return expr;
+					
+			}
 		} else {
 			if (ctx.constants.find(previous().lexeme) != ctx.constants.end()) {
 				return new Constant(previous(), ctx.constants[previous().lexeme]);
