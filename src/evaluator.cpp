@@ -46,7 +46,16 @@ Value Evaluator::visit_grouping_expr(Grouping& grouping){
 }
 
 Value Evaluator::visit_function_expr(Function& function){
-	// TODO: implement function evaluation
+	std::vector<Value> args;
+	std::string name = function.name.lexeme;
+	for (auto expr : function.args) {
+		args.push_back(expr->accept(this));
+	}
+	if(ctx.functions.find(name) != ctx.functions.end()){
+		return ctx.functions[function.name.lexeme](args);
+	} else {
+		throw EvaluationError(function.name, "Call to unknown function");
+	}
 }
 
 Value Evaluator::visit_constant_expr(Constant& constant){
@@ -54,7 +63,7 @@ Value Evaluator::visit_constant_expr(Constant& constant){
 }
 
 Value Evaluator::visit_variable_expr(Variable& variable){
-	if ((variable.env.variables.find(variable.name.lexeme) != variable.env.variables.end())) {
+	if (variable.env.variables.find(variable.name.lexeme) != variable.env.variables.end()) {
 		return variable.env.variables[variable.name.lexeme];
 	}
 	throw EvaluationError(

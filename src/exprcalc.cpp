@@ -1,5 +1,6 @@
 #include "exprcalc.h"
 #include "globals.h"
+#include "library.h"
 void ExprCalc::run_prompt(){
 	std::cout << "exprcalc v0.2" << std::endl;
 	std::cout << "Press Ctrl+C to exit." << std::endl;
@@ -22,7 +23,7 @@ void ExprCalc::run(std::string_view source, Environment& env){
 	// operations, constants and function calls
 	Expr* expr {nullptr};
 	Scanner scanner(source);
-	Evaluator evaluator;
+	Evaluator evaluator(library());
 	auto tokens = scanner.scan_tokens();
 	Parser parser(tokens, env);
 	try {

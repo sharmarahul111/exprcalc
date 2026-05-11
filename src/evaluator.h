@@ -4,6 +4,8 @@
 #include<cmath>
 #include "token.h"
 #include "expr.h"
+#include "library.h"
+
 // runtime error
 struct EvaluationError {
 	Token token;
@@ -15,6 +17,7 @@ struct EvaluationError {
 };
 class Evaluator: public Visitor {
 	private:
+		Context ctx;
 		Value visit_binary_expr(Binary&);
 		Value visit_grouping_expr(Grouping&);
 		Value visit_literal_expr(Literal&);
@@ -23,7 +26,9 @@ class Evaluator: public Visitor {
 		Value visit_constant_expr(Constant&);
 		Value visit_variable_expr(Variable&);
 	public:
-		Evaluator(){};
+		Evaluator(Context ctx){
+			this->ctx = ctx;
+		};
 		Value evaluate(Expr*);
 };
 
