@@ -1,4 +1,5 @@
 #include "library.h"
+#include <cmath>
 
 Context library(){
 	Context ctx;
@@ -51,5 +52,15 @@ Context library(){
     ctx.constants["MB"] = 1024.0 * 1024.0;
     ctx.constants["GB"] = 1024.0 * 1024.0 * 1024.0;
     ctx.constants["TB"] = 1024.0 * 1024.0 * 1024.0 * 1024.0;
+
+	// Funtion implementation
+	ctx.functions["sin"] = [](auto& args){
+		double x = std::get<double>(args[0]);
+		return std::sin(x);
+	};
+	ctx.functions["abs"] = [](auto& args){
+		double x = std::get<double>(args[0]);
+		return std::abs(x);
+	};
 	return ctx;
 }
