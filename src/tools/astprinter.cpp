@@ -18,7 +18,16 @@ Value ASTPrinter::visit_grouping_expr(Grouping& grouping){
 	return parenthesize("group", Exprs{grouping.expr});
 }
 Value ASTPrinter::visit_function_expr(Function& function){
-	return "Function <yet to be implemented>";
+	std::string value = "Function<"+function.name.lexeme+">(";
+	for (size_t i=0;i<function.args.size();i++) {
+		auto str = function.args[i]->accept(this);
+		if(i!=0) value += ",";
+		if (std::holds_alternative<std::string>(str)) {
+			value += std::get<std::string>(str);
+		}
+	}
+	value += ")";
+	return value;
 }
 Value ASTPrinter::visit_constant_expr(Constant& constant){
 	return constant.name.lexeme;
