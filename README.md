@@ -3,7 +3,7 @@ A console expression evaluator and utility DSL for arithmetic, conversions, enco
 
 Inspired by the tree-walk interpreter architecture from Crafting Interpreters.
 
-_work in progress by the way ;(_
+_I think this project has reached a good milestone. I may or may not come back in future ;(_
 ## The idea
 I needed a quick and handy tool to do stuff like number system conversions, unit conversions, encoders, and decoders. This project starts as a workable calculator prototype and gradually evolves into a more extensible expression engine with utility-focused features.
 
@@ -50,10 +50,10 @@ Press Ctrl+C to exit.
 	which can later be used for constants and function names
 - ✅ Abstract Syntax Tree (AST)
 	- handles binary operators `(+,-,*,/,^)`, grouping, unary, literal values.
-	- ❌ function call not implemented yet
 - ✅ Evaluator
 	- evaluates binary operators `(+,-,*,/,^)`, grouping, unary, and literal values
 	- ⚠ exponent (`^`) associativity currently incorrect
 - ✅ Various mathematical, phisical and chemical constants (pi, G, NA, etc)
 - ✅ Runtime variable support internally (can't make variables yet)
 	- ✅ `ans` variable support for storing latest answerin memory
+- ✅ Functions calls, check [src/library.cpp](src/library.cpp) for the complete list
