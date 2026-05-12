@@ -6,7 +6,6 @@
 
 struct Environment {
 	std::unordered_map<std::string, double> variables;
-
 };
 
 #endif

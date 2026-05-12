@@ -83,7 +83,6 @@ Expr* Parser::primary(){
 		consume(TOKEN_RIGHT_PAREN, "No closing ) found.");
 		return new Grouping(expr);
 	}
-	// throw expected expression
 	throw ParseError(peek(), "Expected expression.");
 }
 

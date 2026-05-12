@@ -91,7 +91,6 @@ class Grouping: public Expr {
 		Value accept(Visitor*) override;
 };
 
-// TODO: find a better way to hold arguments
 class Function: public Expr {
 	public:
 		Token name;
