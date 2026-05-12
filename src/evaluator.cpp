@@ -52,7 +52,11 @@ Value Evaluator::visit_function_expr(Function& function){
 		args.push_back(expr->accept(this));
 	}
 	size_t len = args.size();
-	if(len == 1){
+	if(len == 0){
+		if(ctx.nullaryFn.find(name) != ctx.nullaryFn.end()){
+			return ctx.nullaryFn[name]();
+		} else throw EvaluationError(function.name, "Call to unknown function");
+	} else if(len == 1){
 		if(ctx.unaryFn.find(name) != ctx.unaryFn.end()){
 			double x = std::get<double>(args[0]);
 			return ctx.unaryFn[name](x);

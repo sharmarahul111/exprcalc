@@ -1,5 +1,6 @@
 #include "library.h"
 #include <cmath>
+#include <ctime>
 
 Context library(){
 	Context ctx;
@@ -52,6 +53,12 @@ Context library(){
     ctx.constants["MB"] = 1024.0 * 1024.0;
     ctx.constants["GB"] = 1024.0 * 1024.0 * 1024.0;
     ctx.constants["TB"] = 1024.0 * 1024.0 * 1024.0 * 1024.0;
+
+	ctx.nullaryFn = {
+		{"rand", []() { return static_cast<double>(std::rand()) / RAND_MAX; }},
+		{"time", []() { return static_cast<double>(std::time(nullptr)); }},
+		{"clock", []() { return static_cast<double>(std::clock()); }}
+	};
 
 	ctx.unaryFn = {
 		// Trigonometric (input in degrees)
@@ -120,5 +127,6 @@ Context library(){
 		{"k2c", [](double x) { return x - 273.15; }},
 
 	};
+	
 	return ctx;
 }

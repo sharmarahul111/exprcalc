@@ -9,6 +9,7 @@
 
 struct Context {
 	std::unordered_map<std::string, double> constants;
+	std::unordered_map<std::string, std::function<double()>> nullaryFn;
 	std::unordered_map<std::string, std::function<double(double)>> unaryFn;
 };
 Context library();
