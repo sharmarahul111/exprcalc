@@ -4,6 +4,7 @@
 #include <cstddef>
 #include<vector>
 #include<cctype>
+#include<iostream>
 #include "token.h"
 class Scanner {
 	std::size_t start {0};
@@ -18,12 +19,13 @@ class Scanner {
 	void identifier();
 	char peek();
 	public:
-		Scanner()=default;
-		Scanner(std::string_view src){
-			source = src;
-		}
-		std::vector<Token> scan_tokens();
-		void scan_token();
+	Scanner()=default;
+	Scanner(std::string_view src){
+		source = src;
+	}
+	std::vector<Token> scan_tokens();
+	void scan_token();
+	static void printTokens(std::vector<Token>);
 };
 
 #endif

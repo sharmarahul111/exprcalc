@@ -32,9 +32,10 @@ void ExprCalc::run(std::string_view source, Environment& env){
 		expr = nullptr;
 		return;
 	}
+	// print tokens
+	// scanner.printTokens(tokens);
 	// Print Abstract Syntax Tree for debug purpose
 	// printExpr(expr);
-
 	// Evaluate the results
 	try {
 		Value v = evaluator.evaluate(expr);
@@ -56,13 +57,6 @@ void ExprCalc::run(std::string_view source, Environment& env){
 		expr = nullptr;
 		return;
 	}
-
-	// for (auto token : tokens) {
-	// 	std::cout << "Token code: " << token.token_type << ", lexeme = " << token.lexeme;
-	// 	if (std::holds_alternative<double>(token.literal))
-	// 		std::cout << ", double = " << std::get<double>(token.literal);
-	// 	std::cout << std::endl;
-	// }
 
 	delete expr;
 	expr = nullptr;

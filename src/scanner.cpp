@@ -101,3 +101,11 @@ char Scanner::peek(){
 		return source[curr];
 	}
 }
+void Scanner::printTokens(std::vector<Token> tokens){
+	for (auto token : tokens) {
+		std::cout << "Token code: " << token.token_type << ", lexeme = " << token.lexeme;
+		if (std::holds_alternative<double>(token.literal))
+			std::cout << ", double = " << std::get<double>(token.literal);
+		std::cout << std::endl;
+	}
+}
