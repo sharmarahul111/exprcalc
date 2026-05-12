@@ -2,7 +2,7 @@
 #include "globals.h"
 #include "library.h"
 void ExprCalc::run_prompt(){
-	std::cout << "exprcalc v0.2" << std::endl;
+	std::cout << "exprcalc v0.3" << std::endl;
 	std::cout << "Press Ctrl+C to exit." << std::endl;
 	std::string line;
 	Environment env;

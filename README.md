@@ -16,7 +16,7 @@ So, let's see how far I can go.
  ./exprcalc
 ```
 ```
-exprcalc v0.2
+exprcalc v0.3
 Press Ctrl+C to exit.
 > 3+4*(2-9)^2
 199
