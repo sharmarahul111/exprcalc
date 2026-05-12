@@ -48,42 +48,47 @@ Expr* Parser::unary(){
 }
 
 Expr* Parser::primary(){
-	Context ctx = library();
 	if (match(TOKEN_NUMBER)) {
 		double value = std::get<double>(previous().literal);
 		return new Literal(value);
 	} else if (match(TOKEN_IDENTIFIER)) {
-		if (check(TOKEN_LEFT_PAREN)) { // function call syntax
-			std::vector<Expr*> args;
-			Token name = previous();
-			consume(TOKEN_LEFT_PAREN, "never happening error haha");
-			if (match(TOKEN_RIGHT_PAREN)) {
-				return new Function(name, args);
-			} else {
-				do {
-					args.push_back(expression());
-				}
-				while (match(TOKEN_COMMA));
-				Expr* expr = new Function(name, args);
-				consume(TOKEN_RIGHT_PAREN, "Expected ) after arguments.");
-				return expr;
-					
-			}
-		} else {
-			if (ctx.constants.find(previous().lexeme) != ctx.constants.end()) {
-				return new Constant(previous(), ctx.constants[previous().lexeme]);
-			} else if ((env.variables.find(previous().lexeme) != env.variables.end())){
-				return new Variable(previous(), env);
-			} else {
-				throw ParseError(previous(), "Undefined variable.");
-			}
-		}
+		if (check(TOKEN_LEFT_PAREN)) return function();
+		else return identifier();
 	} else if (match(TOKEN_LEFT_PAREN)) {
 		Expr* expr = expression();
 		consume(TOKEN_RIGHT_PAREN, "No closing ) found.");
 		return new Grouping(expr);
 	}
 	throw ParseError(peek(), "Expected expression.");
+}
+
+Expr* Parser::function(){
+	std::vector<Expr*> args;
+	Token name = previous();
+	consume(TOKEN_LEFT_PAREN, "never happening error haha");
+	if (match(TOKEN_RIGHT_PAREN)) {
+		return new Function(name, args);
+	} else {
+		do {
+			args.push_back(expression());
+		}
+		while (match(TOKEN_COMMA));
+		Expr* expr = new Function(name, args);
+		consume(TOKEN_RIGHT_PAREN, "Expected ) after arguments.");
+		return expr;
+			
+	}
+}
+
+Expr* Parser::identifier(){
+	Context ctx = library();
+	if (ctx.constants.find(previous().lexeme) != ctx.constants.end()) {
+		return new Constant(previous(), ctx.constants[previous().lexeme]);
+	} else if ((env.variables.find(previous().lexeme) != env.variables.end())){
+		return new Variable(previous(), env);
+	} else {
+		throw ParseError(previous(), "Undefined variable.");
+	}
 }
 
 bool Parser::match(TokenType t){

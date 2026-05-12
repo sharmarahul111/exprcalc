@@ -33,6 +33,8 @@ class Parser {
 		Expr* exponent();
 		Expr* unary();
 		Expr* primary();
+		Expr* function();
+		Expr* identifier();
 		Token peek();
 		bool check(TokenType);
 		bool match(TokenType);
