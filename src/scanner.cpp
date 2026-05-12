@@ -3,7 +3,7 @@
 #include <cctype>
 std::vector<Token> Scanner::scan_tokens(){
 	while(!is_at_end()){
-		start = curr;
+		start = current;
 		scan_token();
 	}
 	
@@ -73,7 +73,6 @@ void Scanner::number(char c){ // default = '\0'
 		advance(); // consume the .	
 		while (std::isdigit(peek())) advance();
 	}
-	// TODO: pass the literal value also i guess
 	add_token(TOKEN_NUMBER);
 }
 void Scanner::identifier(){
@@ -81,24 +80,24 @@ void Scanner::identifier(){
 	add_token(TOKEN_IDENTIFIER);
 }
 void Scanner::add_token(TokenType token_type){
-	auto text = std::string(source.substr(start, curr-start));
+	auto text = std::string(source.substr(start, current-start));
 	if (token_type == TOKEN_NUMBER)
 		tokens.push_back(Token(token_type, text, std::stod(text)));
 	else
 		tokens.push_back(Token(token_type, text));
 }
 bool Scanner::is_at_end(){
-	return curr >= source.size();
+	return current >= source.size();
 }
 char Scanner::advance(){
-	curr += 1;
-	return source[curr-1];
+	current += 1;
+	return source[current-1];
 }
 char Scanner::peek(){
 	if (is_at_end()) {
 		return '\0';
 	} else {
-		return source[curr];
+		return source[current];
 	}
 }
 void Scanner::printTokens(std::vector<Token> tokens){

@@ -8,7 +8,7 @@
 #include "token.h"
 class Scanner {
 	std::size_t start {0};
-	std::size_t curr {0};
+	std::size_t current {0};
 	std::string_view source;
 	std::vector<Token> tokens;
 	bool is_at_end();
