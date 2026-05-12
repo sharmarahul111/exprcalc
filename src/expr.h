@@ -49,7 +49,6 @@ class Binary: public Expr {
 			left = nullptr;
 			delete right;
 			right = nullptr;
-			// std::cout << "Binary and left right deleted" << std::endl;
 		}
 };
 
@@ -63,7 +62,6 @@ class Grouping: public Expr {
 		~Grouping(){
 			delete expr;
 			expr = nullptr;
-			// std::cout << "Grouping and expr deleted" << std::endl;
 		}
 	};
 	
@@ -75,7 +73,6 @@ class Grouping: public Expr {
 				value = v;
 			}
 			~Literal(){
-				// std::cout << "Literal deleted" << std::endl;
 			}
 	};
 	
@@ -90,12 +87,10 @@ class Grouping: public Expr {
 		~Unary(){
 			delete right;
 			right = nullptr;
-			// std::cout << "Unary and right deleted" << std::endl;
 		}
 		Value accept(Visitor*) override;
 };
 
-// TODO: find a better way to hold arguments
 class Function: public Expr {
 	public:
 		Token name;
@@ -108,9 +103,7 @@ class Function: public Expr {
 			for (size_t i=0; i<args.size(); i++) {
 				delete args[i];
 				args[i] = nullptr;
-				// std::cout << "Function arg["<<i<<"] deleted" << std::endl;
 			}
-			// std::cout << "Function deleted" << std::endl;
 		}
 		Value accept(Visitor*) override;
 	};
@@ -124,9 +117,7 @@ class Function: public Expr {
 			this->value = value;
 		}
 		Value accept(Visitor*) override;
-		~Constant(){
-			// std::cout << "Constant deleted" << std::endl;
-		}
+		~Constant(){}
 	};
 	
 	class Variable: public Expr {
@@ -137,9 +128,7 @@ class Function: public Expr {
 			this->name = name;
 		}
 		Value accept(Visitor*) override;
-		~Variable(){
-			// std::cout << "Variable deleted" << std::endl;
-		}
+		~Variable(){}
 };
 
 #endif

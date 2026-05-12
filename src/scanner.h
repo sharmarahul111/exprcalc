@@ -10,7 +10,6 @@ class Scanner {
 	std::size_t curr {0};
 	std::string_view source;
 	std::vector<Token> tokens;
-	// int line {0};
 	bool is_at_end();
 	char advance();
 	void add_token(TokenType token_type);
@@ -18,7 +17,6 @@ class Scanner {
 	void number(char c='\0');
 	void identifier();
 	char peek();
-	// void string();
 	public:
 		Scanner()=default;
 		Scanner(std::string_view src){

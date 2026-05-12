@@ -18,8 +18,7 @@ void ExprCalc::run_prompt(){
 	}
 }
 void ExprCalc::run(std::string_view source, Environment& env){
-	// TODO: add help statement to show all available
-	// operations, constants and function calls
+	// TODO: add help function
 	Expr* expr {nullptr};
 	Scanner scanner(source);
 	Evaluator evaluator(library());
@@ -33,7 +32,7 @@ void ExprCalc::run(std::string_view source, Environment& env){
 		expr = nullptr;
 		return;
 	}
-	// Print Abstract Syntax Tree
+	// Print Abstract Syntax Tree for debug purpose
 	// printExpr(expr);
 
 	// Evaluate the results
@@ -42,7 +41,7 @@ void ExprCalc::run(std::string_view source, Environment& env){
 		if (std::holds_alternative<double>(v)) {
 			double answer = std::get<double>(v);
 			env.variables["ans"] = answer;
-			// std::cout << answer << std::endl;
+			std::cout << answer << std::endl;
 		} else {
 			std::cout << "Answer not of type double" << std::endl;
 		}
@@ -58,7 +57,6 @@ void ExprCalc::run(std::string_view source, Environment& env){
 		return;
 	}
 
-	// TODO: remember to deallocate parser Expr* memory
 	// for (auto token : tokens) {
 	// 	std::cout << "Token code: " << token.token_type << ", lexeme = " << token.lexeme;
 	// 	if (std::holds_alternative<double>(token.literal))

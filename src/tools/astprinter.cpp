@@ -43,7 +43,6 @@ Value ASTPrinter::parenthesize(std::string name, Exprs expr){
 		if (std::holds_alternative<std::string>(str)) {
 			value += std::get<std::string>(str);
 		}
-		// val->accept(this);
 	}
 	value += ")";
 	return Value(value);

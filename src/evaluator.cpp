@@ -3,7 +3,6 @@
 #include <cmath>
 
 Value Evaluator::evaluate(Expr* expr){
-	// hey Hisenberg, do something!!
 	return expr->accept(this);
 }
 
@@ -11,7 +10,6 @@ Value Evaluator::visit_literal_expr(Literal& literal){
 	if (std::holds_alternative<double>(literal.value)) {
 		return std::get<double>(literal.value);
 	}
-	// TODO: send something useful than a empty token
 	throw EvaluationError(Token(),"Only double values allowed for now");
 }
 
