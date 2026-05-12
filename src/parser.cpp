@@ -23,7 +23,6 @@ Expr* Parser::factor(){
 		Token op = previous();
 		Expr* right = exponent();
 		expr = new Binary(op, expr, right);
-		// std::cout << "Binary allocated" << std::endl;
 	}
 	return expr;
 }
@@ -35,7 +34,6 @@ Expr* Parser::exponent(){
 		Token op = previous();
 		Expr* right = unary();
 		expr = new Binary(op, expr, right);
-		// std::cout << "Binary allocated" << std::endl;
 	}
 	return expr;
 }
@@ -44,7 +42,6 @@ Expr* Parser::unary(){
 	if(match(TOKEN_MINUS)){
 		Token op = previous();
 		Expr* right = unary();
-		// std::cout << "Binary allocated" << std::endl;
 		return new Unary(op, right);
 	}
 	return primary();
@@ -54,7 +51,6 @@ Expr* Parser::primary(){
 	Context ctx = library();
 	if (match(TOKEN_NUMBER)) {
 		double value = std::get<double>(previous().literal);
-		// std::cout << "Literal allocated" << std::endl;
 		return new Literal(value);
 	} else if (match(TOKEN_IDENTIFIER)) {
 		if (check(TOKEN_LEFT_PAREN)) { // function call syntax
@@ -62,14 +58,12 @@ Expr* Parser::primary(){
 			Token name = previous();
 			consume(TOKEN_LEFT_PAREN, "never happening error haha");
 			if (match(TOKEN_RIGHT_PAREN)) {
-				// std::cout << "Function allocated" << std::endl;
 				return new Function(name, args);
 			} else {
 				do {
 					args.push_back(expression());
 				}
 				while (match(TOKEN_COMMA));
-				// std::cout << "Function allocated" << std::endl;
 				Expr* expr = new Function(name, args);
 				consume(TOKEN_RIGHT_PAREN, "Expected ) after arguments.");
 				return expr;
@@ -77,10 +71,8 @@ Expr* Parser::primary(){
 			}
 		} else {
 			if (ctx.constants.find(previous().lexeme) != ctx.constants.end()) {
-				// std::cout << "Constant allocated" << std::endl;
 				return new Constant(previous(), ctx.constants[previous().lexeme]);
 			} else if ((env.variables.find(previous().lexeme) != env.variables.end())){
-				// std::cout << "Constant allocated" << std::endl;
 				return new Variable(previous(), env);
 			} else {
 				throw ParseError(previous(), "Undefined variable.");
@@ -89,7 +81,6 @@ Expr* Parser::primary(){
 	} else if (match(TOKEN_LEFT_PAREN)) {
 		Expr* expr = expression();
 		consume(TOKEN_RIGHT_PAREN, "No closing ) found.");
-		// std::cout << "Grouping allocated" << std::endl;
 		return new Grouping(expr);
 	}
 	// throw expected expression
