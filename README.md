@@ -31,6 +31,8 @@ Press Ctrl+C to exit.
 199
 > ans/2
 99.5
+> sin((140-20)*cos(60)^2)
+0.5
 ```
 
 ### Current Progress
