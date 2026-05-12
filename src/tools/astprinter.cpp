@@ -18,7 +18,7 @@ Value ASTPrinter::visit_grouping_expr(Grouping& grouping){
 	return parenthesize("group", Exprs{grouping.expr});
 }
 Value ASTPrinter::visit_function_expr(Function& function){
-	std::string value = "Function<"+function.name.lexeme+">(";
+	std::string value = function.name.lexeme+"(";
 	for (size_t i=0;i<function.args.size();i++) {
 		auto str = function.args[i]->accept(this);
 		if(i!=0) value += ",";
