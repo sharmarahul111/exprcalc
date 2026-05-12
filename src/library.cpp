@@ -54,9 +54,70 @@ Context library(){
     ctx.constants["TB"] = 1024.0 * 1024.0 * 1024.0 * 1024.0;
 
 	ctx.unaryFn = {
+		// Trigonometric (input in degrees)
 		{"sin", [](double x) { return std::sin(x * M_PI / 180.0); }},
 		{"cos", [](double x) { return std::cos(x * M_PI / 180.0); }},
 		{"tan", [](double x) { return std::tan(x * M_PI / 180.0); }},
+
+		{"csc", [](double x) { return 1.0 / std::sin(x * M_PI / 180.0); }},
+		{"sec", [](double x) { return 1.0 / std::cos(x * M_PI / 180.0); }},
+		{"cot", [](double x) { return 1.0 / std::tan(x * M_PI / 180.0); }},
+
+		// Inverse trig (returns degrees)
+		{"asin", [](double x) { return std::asin(x) * 180.0 / M_PI; }},
+		{"acos", [](double x) { return std::acos(x) * 180.0 / M_PI; }},
+		{"atan", [](double x) { return std::atan(x) * 180.0 / M_PI; }},
+
+		// Hyperbolic
+		{"sinh", [](double x) { return std::sinh(x); }},
+		{"cosh", [](double x) { return std::cosh(x); }},
+		{"tanh", [](double x) { return std::tanh(x); }},
+
+		{"asinh", [](double x) { return std::asinh(x); }},
+		{"acosh", [](double x) { return std::acosh(x); }},
+		{"atanh", [](double x) { return std::atanh(x); }},
+
+		// Exponential / logarithmic
+		{"exp", [](double x) { return std::exp(x); }},
+		{"exp2", [](double x) { return std::exp2(x); }},
+		{"expm1", [](double x) { return std::expm1(x); }},
+
+		{"ln", [](double x) { return std::log(x); }},
+		{"log", [](double x) { return std::log10(x); }},
+		{"log2", [](double x) { return std::log2(x); }},
+		{"log1p", [](double x) { return std::log1p(x); }},
+
+		// Power / roots
+		{"sqrt", [](double x) { return std::sqrt(x); }},
+		{"cbrt", [](double x) { return std::cbrt(x); }},
+
+		// Rounding
+		{"floor", [](double x) { return std::floor(x); }},
+		{"ceil", [](double x) { return std::ceil(x); }},
+		{"round", [](double x) { return std::round(x); }},
+		{"trunc", [](double x) { return std::trunc(x); }},
+
+		// Absolute / sign
+		{"abs", [](double x) { return std::abs(x); }},
+		{"sign", [](double x) { return (x > 0) - (x < 0); }},
+
+		// Angle conversion
+		{"deg", [](double x) { return x * 180.0 / M_PI; }},
+		{"rad", [](double x) { return x * M_PI / 180.0; }},
+
+		// Misc math
+		{"fact", [](double x) {
+			// TODO: input validation for factorial
+			double result = 1;
+			for (int i = 1; i <= static_cast<int>(x); i++) result *= i;
+			return result;
+		}},
+
+		// temprature
+		{"c2f", [](double x) { return x * 9.0 / 5.0 + 32.0; }},
+		{"f2c", [](double x) { return (x - 32.0) * 5.0 / 9.0; }},
+		{"c2k", [](double x) { return x + 273.15; }},
+		{"k2c", [](double x) { return x - 273.15; }},
 
 	};
 	return ctx;
