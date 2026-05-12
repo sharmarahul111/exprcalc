@@ -49,6 +49,8 @@ void ExprCalc::run(std::string_view source, Environment& env){
 	} catch (EvaluationError ee) {
 		std::cout << "EVALUATION ERROR: " << ee.message << std::endl;
 		return;
+	} catch (std::string error) {
+		std::cout << "ERROR: " << error << std::endl;
 	}
 
 	// TODO: remember to deallocate parser Expr* memory

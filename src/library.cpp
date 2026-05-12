@@ -53,14 +53,11 @@ Context library(){
     ctx.constants["GB"] = 1024.0 * 1024.0 * 1024.0;
     ctx.constants["TB"] = 1024.0 * 1024.0 * 1024.0 * 1024.0;
 
-	// Funtion implementation
-	ctx.functions["sin"] = [](auto& args){
-		double x = std::get<double>(args[0]);
-		return std::sin(x);
-	};
-	ctx.functions["abs"] = [](auto& args){
-		double x = std::get<double>(args[0]);
-		return std::abs(x);
+	ctx.unaryFn = {
+		{"sin", [](double x) { return std::sin(x * M_PI / 180.0); }},
+		{"cos", [](double x) { return std::cos(x * M_PI / 180.0); }},
+		{"tan", [](double x) { return std::tan(x * M_PI / 180.0); }},
+
 	};
 	return ctx;
 }

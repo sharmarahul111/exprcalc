@@ -7,10 +7,9 @@
 #include<unordered_map>
 #include<cmath>
 
-using VariableArgs = std::function<Value(const std::vector<Value>&)>;
 struct Context {
 	std::unordered_map<std::string, double> constants;
-	std::unordered_map<std::string, VariableArgs> functions;
+	std::unordered_map<std::string, std::function<double(double)>> unaryFn;
 };
 Context library();
 
