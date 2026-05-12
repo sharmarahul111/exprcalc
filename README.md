@@ -57,3 +57,7 @@ Press Ctrl+C to exit.
 - ✅ Runtime variable support internally (can't make variables yet)
 	- ✅ `ans` variable support for storing latest answerin memory
 - ✅ Functions calls, check [src/library.cpp](src/library.cpp) for the complete list
+
+### Memory leak status
+- leaks every node of Abstract Syntax Tree on synax/parse error.
+- other times there is no leak

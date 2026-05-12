@@ -1,6 +1,7 @@
 #ifndef EXPR_H
 #define EXPR_H
 
+// #include <iostream>
 #include <variant>
 #include<string>
 #include<vector>
@@ -48,6 +49,7 @@ class Binary: public Expr {
 			left = nullptr;
 			delete right;
 			right = nullptr;
+			// std::cout << "Binary and left right deleted" << std::endl;
 		}
 };
 
@@ -61,20 +63,24 @@ class Grouping: public Expr {
 		~Grouping(){
 			delete expr;
 			expr = nullptr;
+			// std::cout << "Grouping and expr deleted" << std::endl;
 		}
-};
-
-class Literal: public Expr {
-	public:
-		std::variant<std::monostate,double> value;
-		Value accept(Visitor*) override;
-		Literal(double v){
-			value = v;
-		}
-};
-
-class Unary: public Expr {
-	public:
+	};
+	
+	class Literal: public Expr {
+		public:
+			std::variant<std::monostate,double> value;
+			Value accept(Visitor*) override;
+			Literal(double v){
+				value = v;
+			}
+			~Literal(){
+				// std::cout << "Literal deleted" << std::endl;
+			}
+	};
+	
+	class Unary: public Expr {
+		public:
 		Token _operator;
 		Expr* right {nullptr};
 		Unary(Token _operator, Expr* right){
@@ -84,6 +90,7 @@ class Unary: public Expr {
 		~Unary(){
 			delete right;
 			right = nullptr;
+			// std::cout << "Unary and right deleted" << std::endl;
 		}
 		Value accept(Visitor*) override;
 };
@@ -101,13 +108,15 @@ class Function: public Expr {
 			for (size_t i=0; i<args.size(); i++) {
 				delete args[i];
 				args[i] = nullptr;
+				// std::cout << "Function arg["<<i<<"] deleted" << std::endl;
 			}
+			// std::cout << "Function deleted" << std::endl;
 		}
 		Value accept(Visitor*) override;
-};
-
-class Constant: public Expr {
-	public:
+	};
+	
+	class Constant: public Expr {
+		public:
 		Token name;
 		double value;
 		Constant(Token name, double value){
@@ -115,16 +124,22 @@ class Constant: public Expr {
 			this->value = value;
 		}
 		Value accept(Visitor*) override;
-};
-
-class Variable: public Expr {
-	public:
+		~Constant(){
+			// std::cout << "Constant deleted" << std::endl;
+		}
+	};
+	
+	class Variable: public Expr {
+		public:
 		Token name;
 		Environment& env;
 		Variable(Token name, Environment& env):env(env){
 			this->name = name;
 		}
 		Value accept(Visitor*) override;
+		~Variable(){
+			// std::cout << "Variable deleted" << std::endl;
+		}
 };
 
 #endif

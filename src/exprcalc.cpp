@@ -10,7 +10,6 @@ void ExprCalc::run_prompt(){
 	while(true){
 		std::cout << "> ";
 		std::getline(std::cin, line);
-		// TODO: check for white space only characters
 		if (line == "") {
 			continue;
 		}
@@ -30,6 +29,8 @@ void ExprCalc::run(std::string_view source, Environment& env){
 		expr = parser.parse();
 	} catch (ParseError pe) {
 		std::cout << "SYNTAX ERROR: " << pe.message << std::endl;
+		delete expr;
+		expr = nullptr;
 		return;
 	}
 	// Print Abstract Syntax Tree
@@ -41,16 +42,20 @@ void ExprCalc::run(std::string_view source, Environment& env){
 		if (std::holds_alternative<double>(v)) {
 			double answer = std::get<double>(v);
 			env.variables["ans"] = answer;
-			std::cout
-			<< answer << std::endl;
+			// std::cout << answer << std::endl;
 		} else {
 			std::cout << "Answer not of type double" << std::endl;
 		}
 	} catch (EvaluationError ee) {
 		std::cout << "EVALUATION ERROR: " << ee.message << std::endl;
+		delete expr;
+		expr = nullptr;
 		return;
 	} catch (std::string error) {
 		std::cout << "ERROR: " << error << std::endl;
+		delete expr;
+		expr = nullptr;
+		return;
 	}
 
 	// TODO: remember to deallocate parser Expr* memory
@@ -60,4 +65,7 @@ void ExprCalc::run(std::string_view source, Environment& env){
 	// 		std::cout << ", double = " << std::get<double>(token.literal);
 	// 	std::cout << std::endl;
 	// }
+
+	delete expr;
+	expr = nullptr;
 }
