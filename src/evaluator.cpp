@@ -61,6 +61,12 @@ Value Evaluator::visit_function_expr(Function& function){
 			double x = std::get<double>(args[0]);
 			return ctx.unaryFn[name](x);
 		} else throw EvaluationError(function.name, "Call to unknown function");
+	} else if(len == 2){
+		if(ctx.binaryFn.find(name) != ctx.binaryFn.end()){
+			double x = std::get<double>(args[0]);
+			double y = std::get<double>(args[1]);
+			return ctx.binaryFn[name](x,y);
+		} else throw EvaluationError(function.name, "Call to unknown function");
 	} else {
 		throw EvaluationError(function.name, "Call to unknown function");
 	}

@@ -1,6 +1,7 @@
 #include "library.h"
 #include <cmath>
 #include <ctime>
+#include <numeric>
 
 Context library(){
 	Context ctx;
@@ -128,5 +129,84 @@ Context library(){
 
 	};
 	
+	ctx.binaryFn = {
+		  // Powers / logarithms / roots
+		{"pow", [](double a, double b) { return std::pow(a, b); }},
+		{"root", [](double n, double x) { return std::pow(x, 1.0 / n); }},
+		{"logn", [](double base, double x) {
+			return std::log(x) / std::log(base);
+		}},
+
+		// Basic comparisons
+		{"min", [](double a, double b) { return std::min(a, b); }},
+		{"max", [](double a, double b) { return std::max(a, b); }},
+
+		// Remainder / modular arithmetic
+		{"mod", [](double a, double b) { return std::fmod(a, b); }},
+		{"rem", [](double a, double b) { return std::remainder(a, b); }},
+
+		// Geometry
+		{"hypot", [](double a, double b) { return std::hypot(a, b); }},
+		{"atan2", [](double y, double x) {
+			return std::atan2(y, x) * 180.0 / M_PI;
+		}},
+
+		// Number theory
+		{"gcd", [](double a, double b) {
+			return static_cast<double>(
+				std::gcd(
+					static_cast<int>(a),
+					static_cast<int>(b)
+				)
+			);
+		}},
+
+		{"lcm", [](double a, double b) {
+			return static_cast<double>(
+				std::lcm(
+					static_cast<int>(a),
+					static_cast<int>(b)
+				)
+			);
+		}},
+
+		// Distance / difference
+		{"dist", [](double a, double b) { return std::abs(a - b); }},
+
+		// Means
+		{"avg", [](double a, double b) { return (a + b) / 2.0; }},
+		{"gmean", [](double a, double b) { return std::sqrt(a * b); }},
+		{"hmean", [](double a, double b) {
+			return 2.0 * a * b / (a + b);
+		}},
+
+		// Combinatorics
+		{"perm", [](double n, double r) {
+			if (n < 0 || r < 0 || r > n)
+				throw std::string("invalid nPr");
+
+			double result = 1;
+			for (int i = 0; i < static_cast<int>(r); ++i)
+				result *= (n - i);
+
+			return result;
+		}},
+
+		{"comb", [](double n, double r) {
+			if (n < 0 || r < 0 || r > n)
+				throw std::string("invalid nCr");
+
+			double num = 1;
+			double den = 1;
+
+			for (int i = 1; i <= static_cast<int>(r); ++i) {
+				num *= (n - i + 1);
+				den *= i;
+			}
+
+			return num / den;
+		}},
+
+	};
 	return ctx;
 }

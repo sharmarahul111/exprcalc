@@ -33,6 +33,14 @@ Press Ctrl+C to exit.
 99.5
 > sin((140-20)*cos(60)^2)
 0.5
+> gcd(4,6)
+2
+> lcm(68,28)
+476
+> perm(hypot(3,4),3)
+60
+> min(34,89)
+34
 ```
 
 ### Current Progress
