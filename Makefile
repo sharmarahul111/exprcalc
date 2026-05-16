@@ -1,5 +1,5 @@
 CC := g++
-CFLAGS := -Wall -Wextra -fsanitize=address -Wpedantic -g
+CFLAGS := -Wall -Wextra -fsanitize=address -Wpedantic -g -Iinclude
 
 SRC := $(wildcard src/*.cpp)
 SRC_T := $(wildcard src/tools/*.cpp)
